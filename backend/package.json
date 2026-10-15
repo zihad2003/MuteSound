@@ -1,8 +1,8 @@
 {
-  "name": "@azanmute/backend",
+  "name": "@mutesound/backend",
   "version": "0.1.0",
   "private": true,
-  "description": "AzanMute backend API — NestJS + Prisma + PostgreSQL",
+  "description": "MuteSound backend API — NestJS + Prisma + PostgreSQL",
   "scripts": {
     "build": "nest build",
     "start": "nest start",

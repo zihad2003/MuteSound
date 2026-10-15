@@ -1,4 +1,4 @@
-// Prisma schema for AzanMute backend
+// Prisma schema for MuteSound backend
 // Datasource: SQLite (via DATABASE_URL env) for local smoke testing.
 // Swap back to provider="postgresql" once Railway Public Proxy URL is available;
 // then re-enable native enums and scalar list below (see each model's comments).

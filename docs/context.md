@@ -1,10 +1,10 @@
 # context.md
-## AzanMute — Project Context
+## MuteSound — Project Context
 
 ---
 
 ## What This Project Is
-AzanMute automatically mutes device/browser audio during Azan (Islamic call to prayer) time, so users aren't distracted by reels/music/games during prayer time. It spans a **Website**, a **Chrome Extension**, and a **Mobile App** (Android primary, iOS best-effort).
+MuteSound automatically mutes device/browser audio during Azan (Islamic call to prayer) time, so users aren't distracted by reels/music/games during prayer time. It spans a **Website**, a **Chrome Extension**, and a **Mobile App** (Android primary, iOS best-effort).
 
 ## Why It Exists
 The founder observed that younger users (including in Bangladesh) often keep consuming loud media — reels, music, games — right through Azan, when local etiquette expects them to pause/lower sound. There's no existing automated tool for this, so the idea is to build one.

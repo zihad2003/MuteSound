@@ -45,7 +45,7 @@ async function bootstrap() {
   const port = parseInt(configService.get<string>('PORT', '3000'), 10);
   await app.listen(port);
   // eslint-disable-next-line no-console
-  console.log(`[AzanMute] backend listening on http://localhost:${port}/${apiPrefix}`);
+  console.log(`[MuteSound] backend listening on http://localhost:${port}/${apiPrefix}`);
 }
 
 bootstrap();

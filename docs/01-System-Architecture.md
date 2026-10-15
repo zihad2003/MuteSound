@@ -1,11 +1,11 @@
 # System Architecture Document
-## Project: AzanMute (working title)
+## Project: MuteSound
 
 ---
 
 ## 1. Overview
 
-AzanMute is a cross-platform system (Website + Chrome Extension + Mobile App) that automatically mutes device/tab/system audio during Azan (Islamic call to prayer) times, based primarily on prayer-time scheduling, with an optional on-device audio-verification layer for accuracy.
+MuteSound is a cross-platform system (Website + Chrome Extension + Mobile App) that automatically mutes device/tab/system audio during Azan (Islamic call to prayer) times, based primarily on prayer-time scheduling, with an optional on-device audio-verification layer for accuracy.
 
 ---
 

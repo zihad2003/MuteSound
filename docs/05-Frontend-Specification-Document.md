@@ -1,5 +1,5 @@
 # Frontend Specification Document
-## Project: AzanMute (working title)
+## Project: MuteSound
 
 ---
 
@@ -62,7 +62,7 @@ Covers UI/UX specification for the **Website Dashboard** and the **Chrome Extens
 ## 3. Chrome Extension UI
 
 ### 3.1 Popup (click extension icon)
-- Header: "AzanMute" + current status ("Active" / "Not configured")
+- Header: "MuteSound" + current status ("Active" / "Not configured")
 - Next Azan countdown
 - Quick toggle: Enable/Disable auto-mute (master switch)
 - Link: "Open full settings" → opens Options page

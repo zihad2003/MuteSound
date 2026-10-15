@@ -1,5 +1,5 @@
 # Project Requirements Document (PRD)
-## Project: AzanMute (working title)
+## Project: MuteSound
 
 ---
 

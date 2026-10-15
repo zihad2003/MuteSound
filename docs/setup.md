@@ -1,5 +1,5 @@
 # setup.md
-## AzanMute — Development Setup Guide
+## MuteSound — Development Setup Guide
 
 ---
 
@@ -16,11 +16,11 @@
 
 ```bash
 git clone <backend-repo-url>
-cd azanmute-backend
+cd backend
 npm install
 
 # Environment variables (.env)
-DATABASE_URL=postgresql://user:pass@localhost:5432/azanmute
+DATABASE_URL=postgresql://user:pass@localhost:5432/mutesound
 JWT_SECRET=your-secret-here
 JWT_REFRESH_SECRET=your-refresh-secret-here
 ALADHAN_API_BASE=https://api.aladhan.com/v1
@@ -41,7 +41,7 @@ Backend should now be running at `http://localhost:3000`.
 
 ```bash
 git clone <website-repo-url>
-cd azanmute-web
+cd website
 npm install
 
 # .env.local
@@ -58,7 +58,7 @@ Website available at `http://localhost:3001` (or default Next.js port).
 
 ```bash
 git clone <extension-repo-url>
-cd azanmute-extension
+cd extension
 npm install
 npm run build
 ```
@@ -77,7 +77,7 @@ For live rebuild during development: `npm run watch` (if configured), then reloa
 
 ```bash
 git clone <android-repo-url>
-cd azanmute-android
+cd android
 flutter pub get
 
 # .env or lib/config.dart
@@ -101,7 +101,7 @@ Key permissions to verify in `AndroidManifest.xml` during setup:
 ## 5. iOS App Setup (Phase 2)
 
 ```bash
-cd azanmute-ios
+cd ios
 flutter pub get
 open ios/Runner.xcworkspace   # if native config needed
 flutter run
@@ -120,7 +120,7 @@ Note: no special audio permissions needed since iOS app is notification-only.
 
 ## 7. Recommended Repo Structure (if monorepo)
 ```
-azanmute/
+mutesound/
 ├── backend/
 ├── website/
 ├── extension/

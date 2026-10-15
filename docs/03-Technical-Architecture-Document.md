@@ -1,5 +1,5 @@
 # Technical Architecture Document
-## Project: AzanMute (working title)
+## Project: MuteSound
 
 ---
 

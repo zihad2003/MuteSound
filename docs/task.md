@@ -1,5 +1,5 @@
 # task.md
-## AzanMute — Task Checklist (MVP Build Order)
+## MuteSound — Task Checklist (MVP Build Order)
 
 > Checkbox-style working list. Full ticket detail with estimates in `06-Feature-Ticket-List.md`.
 

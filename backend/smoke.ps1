@@ -53,7 +53,7 @@ function Del($path, $token = $null) {
 
 # ---------- AUTH ----------
 Test 'POST /auth/signup creates user' {
-  $r = Post '/auth/signup' @{ email = 'smoke@azanmute.test'; password = 'secret123' }
+  $r = Post '/auth/signup' @{ email = 'smoke@mutesound.test'; password = 'secret123' }
   if (-not $r.id -or -not $r.token -or -not $r.refresh_token) { throw 'missing fields' }
   $script:token = $r.token
   $script:refresh = $r.refresh_token
@@ -61,7 +61,7 @@ Test 'POST /auth/signup creates user' {
 
 Test 'POST /auth/signup duplicate returns 409' {
   try {
-    Post '/auth/signup' @{ email = 'smoke@azanmute.test'; password = 'secret123' }
+    Post '/auth/signup' @{ email = 'smoke@mutesound.test'; password = 'secret123' }
     throw 'expected 409'
   } catch {
     if (-not ($_.Exception.Message -match 'EMAIL_ALREADY_EXISTS')) { throw $_ }
@@ -69,14 +69,14 @@ Test 'POST /auth/signup duplicate returns 409' {
 }
 
 Test 'POST /auth/login returns token pair' {
-  $r = Post '/auth/login' @{ email = 'smoke@azanmute.test'; password = 'secret123' }
+  $r = Post '/auth/login' @{ email = 'smoke@mutesound.test'; password = 'secret123' }
   if (-not $r.token -or -not $r.refresh_token) { throw 'missing fields' }
   $script:token = $r.token
 }
 
 Test 'POST /auth/login bad password returns 401' {
   try {
-    Post '/auth/login' @{ email = 'smoke@azanmute.test'; password = 'wrong' }
+    Post '/auth/login' @{ email = 'smoke@mutesound.test'; password = 'wrong' }
     throw 'expected 401'
   } catch {
     if (-not ($_.Exception.Message -match 'INVALID_CREDENTIALS')) { throw $_ }

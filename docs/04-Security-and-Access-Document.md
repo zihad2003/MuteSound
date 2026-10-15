@@ -1,10 +1,10 @@
 # Security & Access Document
-## Project: AzanMute (working title)
+## Project: MuteSound
 
 ---
 
 ## 1. Purpose
-Defines security controls, data privacy handling, permission scoping, and access-control model across all AzanMute components.
+Defines security controls, data privacy handling, permission scoping, and access-control model across all MuteSound components.
 
 ---
 

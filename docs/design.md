@@ -1,5 +1,5 @@
 # design.md
-## AzanMute — Design Document
+## MuteSound — Design Document
 
 ---
 

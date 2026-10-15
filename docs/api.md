@@ -1,7 +1,7 @@
 # api.md
-## AzanMute — API Reference
+## MuteSound — API Reference
 
-Base URL: `https://api.azanmute.app/v1` (placeholder — replace with actual domain)
+Base URL: `https://api.mutesound.app/v1` (placeholder — replace with actual domain)
 
 All authenticated endpoints require header: `Authorization: Bearer <JWT>`
 

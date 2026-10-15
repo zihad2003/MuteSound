@@ -1,5 +1,5 @@
 # agent.md
-## Instructions for AI Coding Agents Working on AzanMute
+## Instructions for AI Coding Agents Working on MuteSound
 
 > Read `context.md` first for project background, then this file for working conventions before writing code.
 
@@ -32,7 +32,7 @@
 - **Follow the build order** in `task.md` (Backend → Website → Extension → Android → QA → Phase 2 items). Don't jump ahead to iOS/ML unless explicitly asked.
 - **Match the API contract** in `api.md` exactly for endpoint names/shapes when implementing backend routes or client calls — if a change is needed, update `api.md` in the same change.
 - **Keep permission requests minimal** on every platform; if a new permission is genuinely required, flag it and update `04-Security-and-Access-Document.md` rather than adding it silently.
-- **Naming**: use `AzanMute` as the working product name in code/comments until a final brand name is confirmed by the user.
+- **Naming**: use `MuteSound` as the project/product name in code, packages, and comments.
 - **Language/comments**: code and comments in English; this doc set is bilingual-friendly but code should stay in English for consistency.
 - **Testing new mute logic**: prefer a debug-only manual trigger (see `setup.md` §6) over waiting for real prayer times.
 

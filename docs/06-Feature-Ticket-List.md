@@ -1,5 +1,5 @@
 # Feature Ticket List
-## Project: AzanMute (working title)
+## Project: MuteSound
 
 Format: `[TICKET-ID] Title — Priority — Est.`
 

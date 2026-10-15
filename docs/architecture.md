@@ -1,5 +1,5 @@
 # architecture.md
-## AzanMute — Architecture Reference (condensed)
+## MuteSound — Architecture Reference (condensed)
 
 > For full diagrams, see `01-System-Architecture.md`. This file is the quick-reference version for engineering/agent context.
 

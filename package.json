@@ -1,0 +1,17 @@
+{
+  "name": "azanmute",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AzanMute monorepo — auto-mute audio during Azan prayer times",
+  "scripts": {
+    "dev:backend": "pnpm --filter @azanmute/backend start:dev",
+    "dev:web": "pnpm --filter @azanmute/web dev",
+    "build:backend": "pnpm --filter @azanmute/backend build",
+    "build:web": "pnpm --filter @azanmute/web build",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

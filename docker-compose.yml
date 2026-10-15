@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: azanmute-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-azanmute}
+      POSTGRES_USER: ${POSTGRES_USER:-azanmute}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-azanmute_dev_pass_123}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - azanmute-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-azanmute} -d ${POSTGRES_DB:-azanmute}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  azanmute-pgdata:

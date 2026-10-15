@@ -1,0 +1,109 @@
+// Prisma schema for AzanMute backend
+// Datasource: SQLite (via DATABASE_URL env) for local smoke testing.
+// Swap back to provider="postgresql" once Railway Public Proxy URL is available;
+// then re-enable native enums and scalar list below (see each model's comments).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// NOTE: Native enums + primitive lists disabled for SQLite local testing.
+// Application-level TypeScript enums + @IsEnum() validators still enforce correctness.
+// Model fields store values as comma-separated strings or raw strings.
+
+model User {
+  id                String              @id
+  email             String              @unique
+  passwordHash      String?
+  googleId          String?             @unique
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  locationSetting   LocationSetting?
+  mutePreference    MutePreference?
+  devices           Device[]
+  refreshTokens     RefreshToken[]
+
+  @@map("users")
+}
+
+model LocationSetting {
+  id                String      @id
+  userId            String      @unique
+  city              String
+  latitude          Float
+  longitude         Float
+  // stored as raw string, e.g. "DHAKA" — app-level TypeScript enum validates
+  calculationMethod String      @default("DHAKA")
+  updatedAt         DateTime    @updatedAt
+
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("location_settings")
+}
+
+model PrayerSchedule {
+  id        String   @id
+  city      String
+  date      DateTime
+  fajr      String
+  dhuhr     String
+  asr       String
+  maghrib   String
+  isha      String
+  // stored as raw string, e.g. "DHAKA"
+  method    String   @default("DHAKA")
+  fetchedAt DateTime @default(now())
+
+  @@unique([city, date])
+  @@index([city, date])
+  @@map("prayer_schedules")
+}
+
+model MutePreference {
+  id                    String   @id
+  userId                String   @unique
+  // comma-separated PrayerName values, e.g. "fajr,dhuhr,asr,maghrib,isha"
+  enabledPrayers        String   @default("fajr,dhuhr,asr,maghrib,isha")
+  muteDurationMinutes   Int      @default(5)
+  mlVerificationEnabled Boolean  @default(false)
+  updatedAt             DateTime @updatedAt
+
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("mute_preferences")
+}
+
+model Device {
+  id           String   @id
+  userId       String
+  // stored as raw string: "android" | "chrome_extension" | "ios"
+  platform     String
+  pushToken    String?
+  lastSyncedAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("devices")
+}
+
+model RefreshToken {
+  id        String   @id
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  revoked   Boolean  @default(false)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}

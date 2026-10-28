@@ -3,6 +3,7 @@ import { Cron } from '@nestjs/schedule';
 import { PrismaService } from '../prisma/prisma.service';
 import { PrayerTimesService } from './prayer-times.service';
 import { CalculationMethod } from '../common/types/enums';
+import { PushDispatchService } from '../notifications/push-dispatch.service';
 
 @Injectable()
 export class PrayerTimesCron {
@@ -11,6 +12,7 @@ export class PrayerTimesCron {
   constructor(
     private readonly prisma: PrismaService,
     private readonly prayerTimes: PrayerTimesService,
+    private readonly push: PushDispatchService,
   ) {}
 
   // Runs daily at 00:05 server-local time; prefetches next 8 days for all cities seen in DB
@@ -31,26 +33,39 @@ export class PrayerTimesCron {
       const seen = new Set<string>();
       const combos: Array<{ city: string; method: CalculationMethod }> = [];
 
-      const push = (city: string, methodRaw: string) => {
+      const pushCombo = (city: string, methodRaw: string) => {
         const key = `${city}|${methodRaw}`;
         if (seen.has(key)) return;
         seen.add(key);
         combos.push({ city, method: methodRaw as CalculationMethod });
       };
-      fromLoc.forEach((l) => push(l.city, l.calculationMethod));
-      fromSched.forEach((r) => push(r.city, r.method));
+      fromLoc.forEach((l) => pushCombo(l.city, l.calculationMethod));
+      fromSched.forEach((r) => pushCombo(r.city, r.method));
 
       if (combos.length === 0) {
         this.logger.log('No cities to prefetch yet — skipping.');
         return;
       }
       const today = new Date();
+      const citiesNotified = new Set<string>();
       for (let offset = 0; offset < 8; offset++) {
         const d = new Date(today);
         d.setDate(today.getDate() + offset);
         for (const { city, method } of combos) {
           try {
-            await this.prayerTimes.getForDay(city, d, method);
+            const day = await this.prayerTimes.getForDay(city, d, method);
+            // Notify FCM devices once per city after today's row is refreshed
+            if (offset === 0 && !citiesNotified.has(city)) {
+              citiesNotified.add(city);
+              try {
+                await this.push.notifyScheduleUpdatedForCity(city, day.date);
+              } catch (pushErr) {
+                this.logger.warn(
+                  `Schedule push failed for ${city}`,
+                  pushErr instanceof Error ? pushErr.message : undefined,
+                );
+              }
+            }
           } catch (e) {
             this.logger.error(
               `Failed to prefetch ${city} (${method}) +${offset}d`,

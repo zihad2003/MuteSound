@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { PrismaService } from '../prisma/prisma.service';
 import { SaveLocationDto, SaveMutePreferenceDto } from './dto/settings.dto';
@@ -8,10 +8,16 @@ import {
   formatPrayerList,
   parsePrayerList,
 } from '../common/types/enums';
+import { PushDispatchService } from '../notifications/push-dispatch.service';
 
 @Injectable()
 export class SettingsService {
-  constructor(private readonly prisma: PrismaService) {}
+  private readonly logger = new Logger(SettingsService.name);
+
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly push: PushDispatchService,
+  ) {}
 
   async saveLocation(userId: string, dto: SaveLocationDto): Promise<{ success: true }> {
     await this.prisma.locationSetting.upsert({
@@ -31,6 +37,7 @@ export class SettingsService {
         calculationMethod: dto.calculation_method as string,
       },
     });
+    await this.notifySettingsUpdated(userId);
     return { success: true };
   }
 
@@ -68,7 +75,19 @@ export class SettingsService {
         mlVerificationEnabled: dto.ml_verification_enabled ?? false,
       },
     });
+    await this.notifySettingsUpdated(userId);
     return { success: true };
+  }
+
+  private async notifySettingsUpdated(userId: string): Promise<void> {
+    try {
+      await this.push.notifyUserSettingsUpdated(userId);
+    } catch (e) {
+      this.logger.warn(
+        `Settings push notify failed for user ${userId}`,
+        e instanceof Error ? e.message : undefined,
+      );
+    }
   }
 
   async getMutePreference(userId: string): Promise<{

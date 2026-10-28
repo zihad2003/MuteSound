@@ -10,6 +10,7 @@ import { SettingsModule } from './settings/settings.module';
 import { PrayerTimesModule } from './prayer-times/prayer-times.module';
 import { DevicesModule } from './devices/devices.module';
 import { AccountModule } from './account/account.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AccountModule } from './account/account.module';
     PrayerTimesModule,
     DevicesModule,
     AccountModule,
+    NotificationsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

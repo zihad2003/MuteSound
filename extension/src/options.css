@@ -1,0 +1,146 @@
+:root {
+  --bg: #eef5f4;
+  --ink: #132526;
+  --muted: #4a6466;
+  --teal: #0b6e6e;
+  --teal-deep: #084f50;
+  --line: #c9d9d7;
+  --soft: #d7eceb;
+  --danger: #a33b3b;
+  --ok: #1f7a4d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font: 16px/1.5 Manrope, Segoe UI, sans-serif;
+  background:
+    radial-gradient(900px 400px at 10% -10%, rgba(11, 110, 110, 0.14), transparent 60%),
+    var(--bg);
+}
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  color: var(--teal-deep);
+  font-size: 2rem;
+}
+
+.lede {
+  margin: 0 0 24px;
+  color: var(--muted);
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 16px 40px rgba(8, 79, 80, 0.06);
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+  color: var(--teal-deep);
+}
+
+.stack {
+  display: grid;
+  gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+input {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+}
+
+button {
+  appearance: none;
+  border: 1px solid var(--teal-deep);
+  background: var(--teal);
+  color: white;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  width: fit-content;
+}
+
+button.ghost {
+  background: white;
+  color: var(--teal-deep);
+  border-color: var(--line);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.error {
+  color: var(--danger);
+  margin: 10px 0 0;
+}
+
+.ok {
+  color: var(--ok);
+  font-weight: 600;
+}
+
+.snapshot {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.snapshot div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+
+.snapshot dt {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.snapshot dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.hint {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.hint a {
+  color: var(--teal);
+  font-weight: 700;
+}

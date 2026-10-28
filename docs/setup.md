@@ -8,7 +8,7 @@
 - PostgreSQL 15+ (local or via Docker)
 - Flutter SDK (if using Flutter for mobile) or Android Studio + Kotlin (if native)
 - Google Chrome (for extension development/testing)
-- Firebase CLI (for push notification setup, later phase)
+- Firebase project + service account (for FCM push — see `docs/firebase.md`)
 
 ---
 
@@ -25,15 +25,18 @@ JWT_SECRET=your-secret-here
 JWT_REFRESH_SECRET=your-refresh-secret-here
 ALADHAN_API_BASE=https://api.aladhan.com/v1
 GOOGLE_OAUTH_CLIENT_ID=your-client-id
-FCM_SERVER_KEY=your-fcm-key   # add once Phase 1 push is implemented
+# FCM (optional locally — without these, push no-ops; see docs/firebase.md)
+FIREBASE_PROJECT_ID=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_PRIVATE_KEY=
 
-# Run migrations
-npm run migrate
+# Run migrations (from monorepo root prefer: pnpm --filter @mutesound/backend ...)
+pnpm prisma:migrate
 
 # Start dev server
-npm run start:dev
+pnpm start:dev
 ```
-Backend should now be running at `http://localhost:3000`.
+Backend should now be running at `http://localhost:3000`. Full Firebase steps: `docs/firebase.md`.
 
 ---
 

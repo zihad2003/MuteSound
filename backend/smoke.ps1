@@ -166,6 +166,12 @@ Test 'DELETE /devices/:id succeeds' {
   Del "/devices/$($script:deviceId)" $script:token
 }
 
+# ---------- NOTIFICATIONS ----------
+Test 'POST /notifications/test returns fcm_enabled flag' {
+  $r = Post '/notifications/test' @{} $script:token
+  if ($null -eq $r.fcm_enabled) { throw 'missing fcm_enabled' }
+}
+
 # ---------- ACCOUNT ----------
 Test 'DELETE /account deletes the user account' {
   $r = Del '/account' $script:token

@@ -1,0 +1,101 @@
+// Reference schema for production PostgreSQL.
+// To cut over: copy this file to schema.prisma (or change provider in schema.prisma),
+// set DATABASE_URL to Postgres, then prisma migrate deploy.
+// See docs/deploy.md.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String              @id
+  email             String              @unique
+  passwordHash      String?
+  googleId          String?             @unique
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  locationSetting   LocationSetting?
+  mutePreference    MutePreference?
+  devices           Device[]
+  refreshTokens     RefreshToken[]
+
+  @@map("users")
+}
+
+model LocationSetting {
+  id                String      @id
+  userId            String      @unique
+  city              String
+  latitude          Float
+  longitude         Float
+  calculationMethod String      @default("DHAKA")
+  updatedAt         DateTime    @updatedAt
+
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("location_settings")
+}
+
+model PrayerSchedule {
+  id        String   @id
+  city      String
+  date      DateTime
+  fajr      String
+  dhuhr     String
+  asr       String
+  maghrib   String
+  isha      String
+  method    String   @default("DHAKA")
+  fetchedAt DateTime @default(now())
+
+  @@unique([city, date])
+  @@index([city, date])
+  @@map("prayer_schedules")
+}
+
+model MutePreference {
+  id                    String   @id
+  userId                String   @unique
+  enabledPrayers        String   @default("fajr,dhuhr,asr,maghrib,isha")
+  muteDurationMinutes   Int      @default(5)
+  mlVerificationEnabled Boolean  @default(false)
+  updatedAt             DateTime @updatedAt
+
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("mute_preferences")
+}
+
+model Device {
+  id           String   @id
+  userId       String
+  platform     String
+  pushToken    String?
+  lastSyncedAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("devices")
+}
+
+model RefreshToken {
+  id        String   @id
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  revoked   Boolean  @default(false)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}

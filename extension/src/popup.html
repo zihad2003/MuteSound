@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MuteSound</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>MuteSound</h1>
+        <p id="status" class="muted">Checking…</p>
+      </div>
+      <label class="toggle">
+        <input id="master" type="checkbox" />
+        <span>Auto-mute</span>
+      </label>
+    </header>
+
+    <section class="card">
+      <p class="label">Next Azan</p>
+      <p id="countdown" class="countdown">—</p>
+      <p id="next-detail" class="muted">Sign in to sync schedule</p>
+    </section>
+
+    <section id="mute-banner" class="banner hidden">
+      Mute active
+      <button id="undo" type="button">Undo</button>
+    </section>
+
+    <nav class="actions">
+      <button id="sync" type="button">Sync now</button>
+      <a id="options" href="options.html">Settings</a>
+      <a id="dashboard" href="http://localhost:3001/dashboard" target="_blank" rel="noreferrer">
+        Dashboard
+      </a>
+    </nav>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

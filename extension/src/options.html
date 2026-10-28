@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MuteSound Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <h1>MuteSound settings</h1>
+      <p class="lede">Log in to sync location, mute preferences, and today’s schedule from your account.</p>
+
+      <section class="card" id="auth-card">
+        <h2>Account</h2>
+        <form id="login-form" class="stack">
+          <label>
+            Email
+            <input id="email" type="email" required autocomplete="username" />
+          </label>
+          <label>
+            Password
+            <input id="password" type="password" required autocomplete="current-password" />
+          </label>
+          <button type="submit">Log in & sync</button>
+        </form>
+        <div id="logged-in" class="stack hidden">
+          <p id="auth-status" class="ok">Signed in</p>
+          <button id="logout" type="button" class="ghost">Log out</button>
+        </div>
+        <p id="auth-error" class="error hidden"></p>
+      </section>
+
+      <section class="card">
+        <h2>Synced snapshot</h2>
+        <dl id="snapshot" class="snapshot">
+          <div><dt>City</dt><dd id="city">—</dd></div>
+          <div><dt>Method</dt><dd id="method">—</dd></div>
+          <div><dt>Mute duration</dt><dd id="duration">—</dd></div>
+          <div><dt>Enabled prayers</dt><dd id="prayers">—</dd></div>
+        </dl>
+        <p class="hint">
+          Edit preferences on the website dashboard. Then sync here.
+          <a href="http://localhost:3001/dashboard" target="_blank" rel="noreferrer">Open dashboard</a>
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Debug</h2>
+        <p class="hint">Triggers a 1-minute mute of currently audible tabs.</p>
+        <button id="test-mute" type="button" class="ghost">Test mute in now</button>
+      </section>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

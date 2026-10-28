@@ -76,6 +76,12 @@ All authenticated endpoints require header: `Authorization: Bearer <JWT>`
 }
 ```
 
+### GET /prayer-times/me
+Authenticated. Uses the signed-in user's saved location + calculation method.
+
+### GET /prayer-times/me/week
+Authenticated weekly schedule for the signed-in user's location.
+
 ---
 
 ## Settings
@@ -124,20 +130,24 @@ All authenticated endpoints require header: `Authorization: Bearer <JWT>`
 
 ### POST /devices/register
 ```json
-// Request
+// Request (Android / iOS — FCM)
 { "platform": "android", "push_token": "fcm_token_here" }
+
+// Request (Chrome extension — no FCM; local chrome.alarms)
+{ "platform": "chrome_extension" }
 
 // Response 201
 { "device_id": "uuid" }
 ```
+If `push_token` already exists, the row is upserted (reassigned to the caller, `last_synced_at` refreshed).
 
 ### GET /devices
 ```json
 // Response 200
 {
   "devices": [
-    { "id": "uuid", "platform": "android", "last_synced_at": "2026-09-26T00:05:00Z" },
-    { "id": "uuid", "platform": "chrome_extension", "last_synced_at": "2026-09-26T00:04:50Z" }
+    { "id": "uuid", "platform": "android", "last_synced_at": "2026-09-26T00:05:00Z", "has_push_token": true },
+    { "id": "uuid", "platform": "chrome_extension", "last_synced_at": "2026-09-26T00:04:50Z", "has_push_token": false }
   ]
 }
 ```
@@ -146,6 +156,31 @@ All authenticated endpoints require header: `Authorization: Bearer <JWT>`
 ```json
 // Response 204 No Content
 ```
+
+---
+
+## Notifications (FCM)
+
+Android/iOS only. Chrome extension ignores FCM and uses `chrome.alarms` + pull sync. Setup: `docs/firebase.md`.
+
+### POST /notifications/test
+Authenticated. Sends a test push to the caller's Android/iOS devices that have a `push_token`.
+
+```json
+// Response 200
+{
+  "fcm_enabled": true,
+  "successCount": 1,
+  "failureCount": 0,
+  "prunedTokens": []
+}
+```
+When Firebase credentials are missing: `fcm_enabled: false`, counts stay at 0 (no-op).
+
+**Server-initiated pushes** (no extra client endpoint):
+- `schedule_updated` — after daily prayer-time prefetch for a city
+- `settings_updated` — after location or mute-preference save
+- `mute_reminder` — helper on `PushDispatchService` (not cron-driven yet; mute still local)
 
 ---
 

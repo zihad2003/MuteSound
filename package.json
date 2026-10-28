@@ -8,6 +8,8 @@
     "dev:web": "pnpm --filter @mutesound/web dev",
     "build:backend": "pnpm --filter @mutesound/backend build",
     "build:web": "pnpm --filter @mutesound/web build",
+    "build:extension": "pnpm --filter @mutesound/extension build",
+    "watch:extension": "pnpm --filter @mutesound/extension watch",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down"
   },
